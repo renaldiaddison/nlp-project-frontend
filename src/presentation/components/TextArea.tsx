@@ -14,7 +14,7 @@ export const TextArea: FC<TextAreaProps> = (props) => {
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                       props.setValue(e.target.value)
                   }}
-                  className={`text-xl p-3 resize-none focus:outline-none border border-gray-300 w-full rounded-md h-[100%] ${props.disabled ? "bg-gray-200" : "bg-white"}`}
+                  className={`sm:text-2xl text-xl p-3 resize-none focus:outline-none border border-gray-300 w-full rounded-md h-[100%] ${props.disabled ? "bg-gray-200" : "bg-white"}`}
         />
     );
 };
