@@ -13,7 +13,7 @@ export class Translate implements TranslateUseCase {
     }
 
     invoke(val: string): Promise<NLPModel> {
-        return this.nlpModelRepo.predict(val)
+        return this.nlpModelRepo.translate(val)
     }
 
 }

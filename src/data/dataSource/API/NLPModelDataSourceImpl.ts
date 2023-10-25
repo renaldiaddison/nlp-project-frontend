@@ -3,12 +3,12 @@ import {NLPModel} from "../../../domain/model/NLPModel.ts";
 import axios from "axios";
 import {NLPModelEntity} from "./entity/NLPModelEntity.ts";
 
-const BASE_URL = "http://localhost:8080/model";
+const BASE_URL = "http://localhost:8000/model";
 
 export default class NLPModelDataSourceImpl implements NLPModelDataSource {
     private axiosInstance = axios.create({
         baseURL: BASE_URL,
-        transformRequest: [function (response) {
+        transformResponse: [function (response) {
             let resp
 
             try {
@@ -19,9 +19,7 @@ export default class NLPModelDataSourceImpl implements NLPModelDataSource {
 
             if (resp.status === 'OK') {
                 if (resp.data) {
-                    return resp.data.map((item: NLPModelEntity): NLPModel => ({
-                        sentence: item.sentence
-                    }))
+                    return (resp.data as NLPModelEntity)
                 }
                 return resp.data
             } else {
@@ -30,11 +28,11 @@ export default class NLPModelDataSourceImpl implements NLPModelDataSource {
         }]
     })
 
-    async predict(sentence: string): Promise<NLPModel> {
+    async translate(sentence: string): Promise<NLPModel> {
         try {
             const response = await this.axiosInstance({
                 method: "post",
-                url: "translate",
+                url: "translate/",
                 data: {
                     sentence: sentence
                 }
